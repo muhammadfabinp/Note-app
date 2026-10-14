@@ -33,12 +33,13 @@ const toggleSelectNote = (id) => {
 }, [notes])
 
 
-const addNote = (title, content,color) => {
+const addNote = (title, content, color, tags) => {
   const newNote = {
   id: Date.now(),
   title: title,
   content: content,
   color: color,
+    tags: tags,
   pinned: false,
   archived: false,
   createdAt: Date.now(),
@@ -136,8 +137,11 @@ const filteredNotes = notes.filter((note) => {
   return (
     !note.archived &&
     (
-      note.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      note.content.toLowerCase().includes(searchTerm.toLowerCase())
+  note.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+note.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
+(note.tags || []).some((tag) =>
+  tag.toLowerCase().includes(searchTerm.toLowerCase())
+)
     )
   )
 })
@@ -222,6 +226,7 @@ sortedNotes.map((note) => (
       id={note.id}
       title={note.title}
       content={note.content}
+      tags={note.tags}
       notes={notes}
       isSelected={selectedNotes.includes(note.id)}
       onToggleSelect={toggleSelectNote}

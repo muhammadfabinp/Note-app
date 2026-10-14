@@ -1,6 +1,7 @@
 import { useState } from "react"
 
-function NoteCard({ id, title, content,  notes,isSelected,onToggleSelect, color, onDelete, archived,pinned,createdAt,updatedAt,onTogglePin,onToggleArchive, onUpdate  }) {
+function NoteCard({ id, title, content,  notes,isSelected,onToggleSelect, color,  tags,
+ onDelete, archived,pinned,createdAt,updatedAt,onTogglePin,onToggleArchive, onUpdate  }) {
   const [isEditing, setIsEditing] = useState(false)
   const [editTitle, setEditTitle] = useState(title)
   const [editContent, setEditContent] = useState(content)
@@ -145,6 +146,23 @@ if (duplicateNote) {
           <p className="mt-2 text-gray-600">
             {content}
           </p>
+
+
+{tags && tags.length > 0 && (
+  <div className="flex flex-wrap gap-2 mt-3">
+    {tags.map((tag, index) => (
+      <span
+        key={index}
+        className="bg-white/70 border border-gray-300 text-gray-700 text-xs px-3 py-1 rounded-full"
+      >
+        {tag}
+      </span>
+    ))}
+  </div>
+)}
+
+
+
 
 
         <div className="mt-3 text-sm text-gray-500">

@@ -5,7 +5,7 @@ function NoteForm({ onAddNote , notes }) {
   const [content, setContent] = useState("")
 const [error, setError] = useState("")
 const [color, setColor] = useState("bg-yellow-100")
-
+const [tags, setTags] = useState("")
 
 useEffect(() => {
   const handleKeyDown = (event) => {
@@ -53,8 +53,17 @@ if (duplicateNote) {
 }
     setError("")
 
-onAddNote(cleanTitle, cleanContent , color)
-    
+
+
+
+
+const tagList = tags
+  .split(",")
+  .map((tag) => tag.trim())
+  .filter((tag) => tag !== "")
+
+onAddNote(cleanTitle, cleanContent, color, tagList)
+   setTags("") 
   setTitle("")
   setContent("")
     
@@ -86,6 +95,14 @@ onAddNote(cleanTitle, cleanContent , color)
       />
 
 
+
+<input
+  type="text"
+  placeholder="Tags (e.g. Study, Work, Personal)"
+  value={tags}
+  onChange={(event) => setTags(event.target.value)}
+  className="w-full border rounded-lg p-3 mb-3"
+/>
 
 
 <div className="flex gap-3 mb-3">
